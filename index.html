@@ -98,16 +98,8 @@
                 document.getElementById('inputError').innerHTML = "Input source not found.";
                 document.getElementById('audioinput').style.display = "none";
                 document.getElementById('volume').style.display = "none";
-                //document.getElementById('visualizer').style.display = "none";
             });
         }
-
-        //try {
-        //    MediaStreamTrack.getSources(gotSources);
-        //} catch (e) {
-        //    document.getElementById('browserError').innerHTML = "Cannot find MediaStreamTrack.gotSources(). Try Google Chrome on PC or Mac.";
-        //}
-
 
         function gotSources(sourceInfos) {
             var audioSelect = document.getElementById("audioinput");
@@ -182,12 +174,6 @@
             ctx.beginPath();
             //ctx.moveTo(lastX, lastY);
 
-            // No buffer overrun protection
-            //while (timeData[risingEdge++] - 128 > 0 && risingEdge <= width);
-            //if (risingEdge >= width) risingEdge = 0;
-
-            //while (timeData[risingEdge++] - 128 < edgeThreshold && risingEdge <= width);
-            //if (risingEdge >= width) risingEdge = 0;
             if (flipX && flipY) {
                 for (var x = 0; x < timeData1.length; x++) {
                     ctx.lineTo(width - timeData1[x] * scaleX, timeData2[x] * scaleY);
