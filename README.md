@@ -1,37 +1,27 @@
-## Welcome to GitHub Pages
+## X Y Oscilloscope
 
-You can use the [editor on GitHub](https://github.com/Sean-Bradley/Oscilloscope/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+https://sean-bradley.github.io/Oscilloscope/
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Accepts live input from 'microphone' or 'stereo mix' sources.
 
-### Markdown
+You will need to allow your browser to access your microphone when alerted.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+Left Input channel affects X and right input channel affects Y.
 
-```markdown
-Syntax highlighted code block
+Playing sine wave in left channel and cosine wave in right channel draws a circle.
 
-# Header 1
-## Header 2
-### Header 3
+Written to work Windows 10 and Microsoft Edge Browser.
 
-- Bulleted
-- List
+On windows, right click speaker icon in task bar, and click 'Recording Devices'
 
-1. Numbered
-2. List
+Choose 'Stereo Mix' as default device and make sure it's level is set to 100.
 
-**Bold** and _Italic_ and `Code` text
+If 'Stereo Mix' option is not visible, right click in devices area and tick 'Show Disabled Devices' and 'Show Disconnected Devices'
 
-[Link](url) and ![Image](src)
-```
+If 'Stereo Mix' is still not visible, you may need to update the RealTek High Definition Audio drivers from the RealTek website.
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+If all settings are correct then playing synth music from your desktop will produce patterns in the display.
 
-### Jekyll Themes
+Written by SeanWasEre Youtube
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Sean-Bradley/Oscilloscope/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+https://www.youtube.com/seanwasere
