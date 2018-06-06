@@ -25,3 +25,8 @@ If all settings are correct then playing synth music from your desktop will prod
 Written by SeanWasEre Youtube
 
 https://www.youtube.com/seanwasere
+
+
+[Example of using the Oscillioscope to draw pictures with sound](https://www.youtube.com/watch?v=JrOP-RJ5p1I)
+
+[![Draw pictures with sound](https://img.youtube.com/vi/JrOP-RJ5p1I/0.jpg)](https://www.youtube.com/watch?v=JrOP-RJ5p1I) 
