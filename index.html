@@ -1,221 +1,410 @@
 <!doctype html>
 <html>
+
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=1280" />
+    <meta name="viewport" content="width=980;initial-scale=1.0">
     <meta http-equiv="cache-control" content="max-age=0" />
     <meta http-equiv="cache-control" content="no-cache" />
     <meta http-equiv="expires" content="0" />
     <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
     <meta http-equiv="pragma" content="no-cache" />
-    <title>X Y Oscilloscope by SeanWasEre Youtube</title>
+    <title>X Y Oscilloscope by seanwasere ytbe</title>
 
     <style>
         BODY {
             margin: 0px;
             padding: 0px;
             font-family: Arial, Helvetica, sans-serif;
-            background-color: white;
+            background-color: black;
             color: black;
             font-size: 17px;
+            overflow: hidden;
+        }
+
+        #scope {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 1024px;
+            height: 1024px;
+        }
+
+        .startButton {
+            width: 100%;
+            height: 50px;
+            background-color: orangered;
+            border: 1px solid;
+            color: black;
+            font-size: 32px;
+            cursor: pointer;
+        }
+
+        .modal {
+            display: block;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .modal-content {
+            background-color: #dddddd;
+            margin: 12% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+        }
+
+        .modal-footer {
+            text-align: center;
+        }
+
+        #modeOptions {
+            position: absolute;
+            top: 50px;
+            left: 10px;
+            color: white;
+        }
+
+        #LeftRightChannels {
+            position: absolute;
+            top: 90px;
+            left: 10px;
+            color: white;
+            display: none;
+        }
+
+        #XYFlipOptions {
+            position: absolute;
+            top: 90px;
+            left: 10px;
+            color: white;
+            display: block;
+        }
+
+        .bordered {
+            padding: 4px;
+            margin-right: 20px;
+            border: 1px solid gray;
+        }
+
+        #header {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: greenyellow;
+        }
+
+        #header a {
+            color: hotpink;
         }
     </style>
-
-
 </head>
+
 <body>
-    <a href="https://github.com/Sean-Bradley"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
-    <table>
-        <tr>
-            <td valign="top"><canvas id='scope' width=800 height=800></canvas></td>
-            <td valign="top">
-                <h1>X Y Oscilloscope</h1>
-                <p>
-                    Input Source:<br />
-                    <select id="audioinput" onchange="changeInput(this.selectedIndex);">
-                        <option>default</option>
-                    </select>
+    <canvas id='scope' width='1024' height='1024'></canvas>
+    <a href="https://github.com/Sean-Bradley/Oscilloscope">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"
+            alt="Fork me on GitHub">
+    </a>
+    <span id="header">
+        Tutorial at
+        <a href="https://www.youtube.com/watch?v=JrOP-RJ5p1I" target="_blank">Pictures from Sound using an Oscilloscope and Fruityloops FL Studio</a>
+    </span>
+    <span id="modeOptions">Mode:&nbsp;&nbsp;
+        <label class="bordered">
+            <input type="radio" name="rdoDisplayMode" id="0" onclick="setXYMode(0);" checked/>X Y</label>
+        <label class="bordered">
+            <input type="radio" name="rdoDisplayMode" id="1" onclick="setXYMode(1);" />Waveform</label>
+        <label class="bordered">
+            <input type="radio" name="rdoDisplayMode" id="1" onclick="setXYMode(2);" />Spectrum</label>
+    </span>
+    <span id="LeftRightChannels">
+        <label class="bordered">
+            <input type="checkbox" onchange="toggleLeft();" checked />Left Channel
+        </label>
+        <label class="bordered">
+            <input type="checkbox" onchange="toggleRight();" checked />Right Channel
+        </label>
+    </span>
+    <span id="XYFlipOptions">
+        <label class="bordered">
+            <input type="checkbox" onchange="changeflipX();" checked />Flip X
+        </label>
+        <label class="bordered">
+            <input type="checkbox" onchange="changeflipY();" checked />Flip Y
+        </label>
+    </span>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>X Y Oscilloscope by seanwasere ytbe</h2>
+            </div>
+            <div class="modal-body">
+                <p>The X Y Oscilloscope uses Stereo Input.</p>
+                <p>Left Input channel affects X axis and right input channel affects Y axis.</p>
+                <p>Playing sine wave in left channel and cosine wave in right channel draws a circle.</p>
+
+                <button class="startButton" onclick="connectAudioAPI(); ">START</button>
+
+                <p>Works Best with Windows 10 and Edge browser (it's true).
+                    <ul>
+                        <li>Open 'Privacy' Settings from the Cortana input.</li>
+                        <li>Allow Microsoft Edge to access Microphone</li>
+                        <li>Open 'Sound' settings from the Cortana input box.</li>
+                        <li>Manage 'Recording Devices' to select desired audio input, stero input preferred.</li>
+                        <li>Refresh Oscilloscope Page in Edge Browser, Press 'START' button and allow website to access your
+                            microphone.
+                        </li>
+                        <li>Make some noise</li>
+                    </ul>
                 </p>
-                <p><div id="inputError"></div></p>
-                <p><div id="browserError" style="color:red;"></div></p>
-                <p>Accepts live input from 'microphone' or 'stereo mix' sources.</p>
-                <p>You will need to allow your browser to access your microphone when alerted.</p>
-                <p>Left Input channel affects X and right input channel affects Y.</p>
-                <p> Playing sine wave in left channel and cosine wave in right channel draws a circle.</p>
-                <p>Written to work Windows 10 and Microsoft Edge Browser.</p>
-                <p>On windows, right click speaker icon in task bar, and click 'Recording Devices'</p>
-                <p>Choose 'Stereo Mix' as default device and make sure it's level is set to 100.</p>
-                <p>If 'Stereo Mix' option is not visible, right click in devices area and tick 'Show Disabled Devices' and 'Show Disconnected Devices'</p>
-                <p>If 'Stereo Mix' is still not visible, you may need to update the RealTek High Definition Audio drivers from the RealTek website.</p>
-                <p>If all settings are correct then playing synth music from your desktop will produce patterns in the display.</p>
-                <p>Flip X <input type="checkbox" onchange="changeflipX();" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Flip Y <input type="checkbox" onchange="changeflipY();" /></p>
-                <p></p>
-                <p>Written by <a href="https://youtube.com/seanwasere" target="_blank">SeanWasEre Youtube</a></p>
 
-            </td>
-        </tr>
-    </table>
+                <p>
+                    Tutorial of the Oscillioscope setup and drawing shapes with sound
+                    <br/>
+                    <a href="https://www.youtube.com/watch?v=JrOP-RJ5p1I" target="_blank">
+                        <img src="https://img.youtube.com/vi/JrOP-RJ5p1I/0.jpg">
+                    </a>
+                </p>
 
+                <p>Source code at
+                    <a href="https://github.com/Sean-Bradley/Oscilloscope">https://github.com/Sean-Bradley/Oscilloscope</a>
+                </p>
 
-    <script lang="javascript">
+                <p>Written by
+                    <a href="https://youtube.com/seanwasere " target="_blank">SeanWasEre Youtube</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <br/>
 
-        window.AudioContext = window.AudioContext || window.webkitAudioContext;
-        if (window.AudioContext == undefined) {
-            document.getElementById('browserError').innerHTML = "Cannot find browser AudioContext object. Please try Microsoft Edge or Google Chrome.";
-            document.getElementById('browserError').style.display = "block";
+    <script lang="javascript ">
 
-        }
+        var AudioContext = window.AudioContext || window.webkitAudioContext || false;
 
-        var context = new AudioContext();
+        var XYMode = 0;
+        var connected = false;
+        var context;
 
         var currentStream;
-        var gainNode;
         var mediaSource, mediaBuffer, remoteDestination;
         var analyser1;
         var analyser2;
         var splitter;
 
-        var constraints =
-            {
-                audio: {
-                    optional: [{ echoCancellation: false }]
-                }
-            };
-
-        function changeInput() {
-            if (!!window.stream) {
-                window.stream.stop();
+        function setXYMode(b) {
+            if (b === 0) {
+                XYMode = 0;
+                document.getElementById("XYFlipOptions").style.display = "block";
+                document.getElementById("LeftRightChannels").style.display = "none";
+                analyser1.fftSize = 16384;
+                analyser2.fftSize = 16384;
+            } else if (b === 1) {
+                XYMode = 1;
+                document.getElementById("XYFlipOptions").style.display = "none";
+                document.getElementById("LeftRightChannels").style.display = "block";
+                analyser1.fftSize = 2048;
+                analyser2.fftSize = 2048;
+            } else {
+                XYMode = 2;
+                document.getElementById("XYFlipOptions").style.display = "none";
+                document.getElementById("LeftRightChannels").style.display = "block";
+                analyser1.fftSize = 2048;
+                analyser2.fftSize = 2048;
             }
-            var audioSelect = document.getElementById("audioinput");
-            var audioSource = audioSelect.value;
-            constraints.audio.optional.push({ sourceId: audioSource });
-            if (!navigator.getUserMedia) {
-                navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-            }
-
-            navigator.getUserMedia(constraints, gotStream, function (e) {
-                document.getElementById('browserError').innerHTML = "Cannot find your input source.";
-                document.getElementById('browserError').style.display = "block";
-                document.getElementById('inputError').innerHTML = "Input source not found.";
-                document.getElementById('audioinput').style.display = "none";
-                document.getElementById('volume').style.display = "none";
-            });
         }
 
-        function gotSources(sourceInfos) {
-            var audioSelect = document.getElementById("audioinput");
-            while (audioSelect.firstChild) {
-                audioSelect.removeChild(audioSelect.firstChild);
-            }
+        var leftChannel = true;
+        var rightChannel = true;
+        function toggleLeft() {
+            leftChannel = !leftChannel;
+        }
+        function toggleRight() {
+            rightChannel = !rightChannel;
+        }
+        function connectAudioAPI() {
+            try {
+                context = new AudioContext();
 
-            for (var i = 0; i != sourceInfos.length; ++i) {
-                var sourceInfo = sourceInfos[i];
-                if (sourceInfo.kind === 'audio') {
-                    var option = document.createElement("option");
-                    option.value = sourceInfo.id;
-                    option.text = sourceInfo.label || 'input ' + (audioSelect.length + 1);
-                    audioSelect.appendChild(option);
-                }
+                analyser1 = context.createAnalyser();
+                analyser1.fftSize = 16384;
+
+                analyser2 = context.createAnalyser();
+                analyser2.fftSize = 16384;
+
+                splitter = context.createChannelSplitter();
+
+                connectInput();
+            } catch (e) {
+                alert(e);
             }
-            audioSelect.onchange = changeInput;
+        }
+
+        function connectInput() {
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(function (mediaStream) {
+                    gotStream(mediaStream);
+                }).catch(function (e) {
+                    alert("In connectInput : " + e);
+                });
+
         }
 
         function gotStream(stream) {
             try {
+
                 mediaSource = context.createMediaStreamSource(stream);
+
+                mediaSource.connect(splitter);
 
                 splitter.connect(analyser1, 0, 0);
                 splitter.connect(analyser2, 1, 0);
 
-                mediaSource.connect(splitter);
+                document.getElementById("myModal").style.display = "none";
+                resizeCanvas();
+                draw();
 
             } catch (e) {
-                alert(e.message);
+                alert("In gotStream : " + e);
             }
         }
 
 
-
-        analyser1 = context.createAnalyser();
-        //analyser1.smoothingConstant = 1.0;
-        analyser1.fftSize = 16384;
-
-        analyser2 = context.createAnalyser();
-        //analyser2.smoothingConstant = 1.0;
-        analyser2.fftSize = 16384;
-
-        splitter = context.createChannelSplitter();
-
         var ctx = document.getElementById('scope').getContext('2d');
-        var width = ctx.canvas.width;
-        var height = ctx.canvas.height;
+        var width = 1024;
+        var height = 1024;
         var canvasData = ctx.getImageData(0, 0, width, height);
         var canvasBlankData = ctx.getImageData(0, 0, width, height);
 
+        window.addEventListener('resize', resizeCanvas, false);
+        function resizeCanvas() {
+            document.getElementById('scope').style.width = window.innerWidth + "px";
+            document.getElementById('scope').style.height = window.innerHeight + "px";
+        }
+
         var flipX = false;
         var flipY = false;
-        var scaleX = 3;
-        var scaleY = 3;
+        var scaleX = 4;
+        var scaleY = 4;
 
         function drawScope() {
 
             var timeData1 = new Uint8Array(analyser1.frequencyBinCount);
             var timeData2 = new Uint8Array(analyser2.frequencyBinCount);
 
-            analyser1.getByteTimeDomainData(timeData1);
-            analyser2.getByteTimeDomainData(timeData2);
+            if (XYMode === 0) {
+                analyser1.getByteTimeDomainData(timeData1);
+                analyser2.getByteTimeDomainData(timeData2);
 
-            ctx.fillStyle = 'rgba(0, 0, 0, .1)';
-            ctx.fillRect(0, 0, width, height);
+                ctx.fillStyle = 'rgba(0, 0, 0, .1)';
+                ctx.fillRect(0, 0, width, height);
 
-            ctx.beginPath();
-            //ctx.stroke();
-            ctx.lineWidth = 1;
-            ctx.strokeStyle = 'rgb(0, 128, 255)';
-            ctx.beginPath();
-            //ctx.moveTo(lastX, lastY);
+                ctx.beginPath();
+                ctx.lineWidth = 1;
+                ctx.strokeStyle = 'rgb(0, 128, 255)';
+                ctx.beginPath();
 
-            if (flipX && flipY) {
-                for (var x = 0; x < timeData1.length; x++) {
-                    ctx.lineTo(width - timeData1[x] * scaleX, timeData2[x] * scaleY);
+                if (flipX && flipY) {
+                    for (var x = 0; x < timeData1.length; x++) {
+                        ctx.lineTo(width - timeData1[x] * scaleX, timeData2[x] * scaleY);
+                    }
+                } else if (flipX && !flipY) {
+                    for (var x = 0; x < timeData1.length; x++) {
+                        ctx.lineTo(width - timeData1[x] * scaleX, height - timeData2[x] * scaleY);
+                    }
+                } else if (!flipX && flipY) {
+                    for (var x = 0; x < timeData1.length; x++) {
+                        ctx.lineTo(timeData1[x] * scaleX, timeData2[x] * scaleY);
+                    }
+                } else {
+                    for (var x = 0; x < timeData1.length; x++) {
+                        ctx.lineTo(timeData1[x] * scaleX, height - timeData2[x] * scaleY);
+                    }
                 }
-            } else if (flipX && !flipY) {
-                for (var x = 0; x < timeData1.length; x++) {
-                    ctx.lineTo(width - timeData1[x] * scaleX, height - timeData2[x] * scaleY);
-                }
-            } else if (!flipX && flipY) {
-                for (var x = 0; x < timeData1.length; x++) {
-                    ctx.lineTo(timeData1[x] * scaleX, timeData2[x] * scaleY);
-                }
+                ctx.stroke();
             } else {
-                for (var x = 0; x < timeData1.length; x++) {
-                    ctx.lineTo(timeData1[x] * scaleX, height - timeData2[x] * scaleY);
+                if (XYMode === 1) {
+                    analyser1.getByteTimeDomainData(timeData1);
+                    analyser2.getByteTimeDomainData(timeData2);
 
-                    //var index = (parseInt(timeData1[x] * scaling) + parseInt(height - timeData2[x] * scaling) * width) * 4;
+                    ctx.fillStyle = "rgb(0, 0, 0) ";
+                    ctx.fillRect(0, 0, 1024, 1024);
+                    ctx.strokeStyle = 'rgb(255, 128, 0)';
+                    ctx.lineWidth = 3;
+                    if (leftChannel && rightChannel) {
+                        ctx.beginPath();
+                        for (var x = 0; x < 1024; x++) {
+                            ctx.lineTo(x, 512 - (timeData1[x] * 2));
+                        }
+                        ctx.stroke();
+                        ctx.beginPath();
+                        for (var x = 0; x < 1024; x++) {
+                            ctx.lineTo(x, 1024 - (timeData2[x] * 2));
+                        }
+                        ctx.stroke();
+                    } else if (leftChannel && !rightChannel) {
+                        ctx.beginPath();
+                        for (var x = 0; x < 1024; x++) {
+                            ctx.lineTo(x, 1024 - (timeData1[x] * 4));
+                        }
+                        ctx.stroke();
+                    } else if (!leftChannel && rightChannel) {
+                        ctx.beginPath();
+                        for (var x = 0; x < 1024; x++) {
+                            ctx.lineTo(x, 1024 - (timeData2[x] * 4));
+                        }
+                        ctx.stroke();
+                    }
+                } else {
+                    analyser1.getByteFrequencyData(timeData1);
+                    analyser2.getByteFrequencyData(timeData2);
 
-                    //canvasData.data[index + 0] = 0;
-                    //canvasData.data[index + 1] = 200;
-                    //canvasData.data[index + 2] = 0;
-                    //canvasData.data[index + 3] = 255;
+                    ctx.fillStyle = "rgb(0, 0, 0) ";
+                    ctx.fillRect(0, 0, 1024, 1024);
+                    ctx.strokeStyle = 'rgb(128, 0, 256)';
+                    ctx.lineWidth = 6;
+                    if (leftChannel && rightChannel) {
+                        ctx.beginPath();
+                        for (var x = 0; x < 512; x++) {
+                            ctx.lineTo(x * 2, 500 - (timeData1[x] * 2));
+                        }
+                        ctx.stroke();
+                        ctx.beginPath();
+                        for (var x = 0; x < 512; x++) {
+                            ctx.lineTo(x * 2, 1012 - (timeData2[x] * 2));
+                        }
+                        ctx.stroke();
+                    } else if (leftChannel && !rightChannel) {
+                        ctx.beginPath();
+                        for (var x = 0; x < 512; x++) {
+                            ctx.lineTo(x * 2, 1012 - (timeData1[x] * 4));
+                        }
+                        ctx.stroke();
+                    } else if (!leftChannel && rightChannel) {
+                        ctx.beginPath();
+                        for (var x = 0; x < 512; x++) {
+                            ctx.lineTo(x * 2, 1012 - (timeData2[x] * 4));
+                        }
+                        ctx.stroke();
+                    }
                 }
+
+
             }
-
-            //ctx.putImageData(canvasData, 0, 0);
-
-            //lastX = width - timeData1[timeData1.length - 1] * scaling;
-            //lastY = height - timeData2[timeData2.length - 1] * scaling;
-
-            ctx.stroke();
         }
 
         function draw() {
             drawScope();
-
             requestAnimationFrame(draw);
         }
-
-        changeInput();
-        draw();
 
         function changeflipX(e) {
             flipX = !flipX;
@@ -226,4 +415,5 @@
 
     </script>
 </body>
+
 </html>
