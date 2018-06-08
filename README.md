@@ -1,6 +1,10 @@
 ## X Y Oscilloscope
 
-https://sean-bradley.github.io/Oscilloscope/
+Demo : https://sean-bradley.github.io/Oscilloscope/
+
+![X Y](1.jpg)
+![Waveform](3.jpg)
+![Spectrum](4.jpg)
 
 Accepts live input from 'microphone' or 'stereo mix' sources.
 
@@ -49,4 +53,4 @@ https://www.youtube.com/seanwasere
 
 [Example of using the Oscillioscope to draw pictures with sound](https://www.youtube.com/watch?v=JrOP-RJ5p1I)
 
-[![Draw pictures with sound](https://img.youtube.com/vi/JrOP-RJ5p1I/0.jpg)](https://www.youtube.com/watch?v=JrOP-RJ5p1I) 
+[![Draw pictures with sound](0.jpg)](https://www.youtube.com/watch?v=JrOP-RJ5p1I) 
