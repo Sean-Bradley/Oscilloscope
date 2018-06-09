@@ -33,7 +33,7 @@ On windows,
 - Refresh Oscilloscope Page in Edge Browser, Press 'START' button and allow website to access your microphone.
 - Make some noise
 
-You can watch [this video](https://www.youtube.com/watch?v=JrOP-RJ5p1I) to see the same patterns that are drawn on the X Y view, as are drawn in the video.
+You can watch [this video](https://www.youtube.com/watch?v=JrOP-RJ5p1I) to see the same patterns that are drawn on the X Y view, as are drawn in the video. The images are transferred between your application windows using audible sound waves. And can even work across air gapped devices. 
 
 Search for lissagous sound videos to see other examples. 
 Disclaimer, this software isn't as good as a real hardware XY Oscilloscope, but it's a good temporary replacement for the time being.
