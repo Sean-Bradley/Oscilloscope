@@ -46,7 +46,7 @@ If 'Stereo Mix' is still not visible, you may need to update the RealTek High De
 
 If all settings are correct then playing synth music from your desktop will produce patterns in the display.
 
-Written by SeanWasEre Youtube
+Written by seanwasere ytbe
 
 https://www.youtube.com/seanwasere
 
