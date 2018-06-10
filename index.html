@@ -206,8 +206,8 @@
                 XYMode = 0;
                 document.getElementById("XYFlipOptions").style.display = "block";
                 document.getElementById("LeftRightChannels").style.display = "none";
-                analyser1.fftSize = 2048;
-                analyser2.fftSize = 2048;
+                analyser1.fftSize = 4096;
+                analyser2.fftSize = 4096;
             } else if (b === 1) {
                 XYMode = 1;
                 document.getElementById("XYFlipOptions").style.display = "none";
@@ -236,10 +236,10 @@
                 context = new AudioContext();
 
                 analyser1 = context.createAnalyser();
-                analyser1.fftSize = 2048;
+                analyser1.fftSize = 4096;
 
                 analyser2 = context.createAnalyser();
-                analyser2.fftSize = 2048;
+                analyser2.fftSize = 4096;
 
                 splitter = context.createChannelSplitter();
 
